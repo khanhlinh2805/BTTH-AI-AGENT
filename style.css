@@ -1,0 +1,321 @@
+/* Kẹo Cute - Soft Ivory & Muted Terracotta Theme */
+:root {
+  --bg-ivory: #F8F5EE;
+  --bg-ivory-light: #FCFAF6;
+  --bg-card: #FFFFFF;
+  --dock-terracotta: #BE7B68;
+  --dock-terracotta-dark: #AA6A58;
+  --dock-active: #FFF7F4;
+  --accent-terracotta: #BE7B68;
+  --accent-terracotta-light: #F7EBE8;
+  --accent-sage: #7E9682;
+  --accent-sage-light: #EBF2EC;
+  --accent-sand: #DFAB7B;
+  --accent-sand-light: #FAF3EB;
+  --accent-rose: #D49586;
+  --text-dark: #3A2E2B;
+  --text-body: #63534B;
+  --text-muted: #96847B;
+  --border-subtle: rgba(190, 123, 104, 0.16);
+  --border-card: rgba(190, 123, 104, 0.12);
+  --shadow-soft: 0 10px 30px -5px rgba(120, 80, 60, 0.06), 0 4px 12px -2px rgba(120, 80, 60, 0.03);
+  --shadow-dock: 0 16px 40px rgba(190, 123, 104, 0.28);
+  --shadow-card-hover: 0 16px 36px -6px rgba(120, 80, 60, 0.10);
+  --shadow-inner-pill: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  background-color: var(--bg-ivory);
+  color: var(--text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Custom Soft Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(190, 123, 104, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(190, 123, 104, 0.45);
+}
+
+/* Claymorphic & Soft Card Styling */
+.keo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.keo-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.keo-card-accent {
+  background: linear-gradient(145deg, #FFFFFF, var(--bg-ivory-light));
+  border: 1px solid rgba(190, 123, 104, 0.2);
+}
+
+/* Vertical Dock in Image */
+.keo-dock {
+  background: linear-gradient(180deg, #BE7B68 0%, #B2705D 100%);
+  border-radius: 28px;
+  box-shadow: var(--shadow-dock);
+  width: 68px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.dock-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.82);
+  transition: all 0.22s ease;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.dock-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.dock-btn.active {
+  background: #FFFDF9;
+  color: var(--dock-terracotta);
+  box-shadow: 0 4px 14px rgba(70, 30, 20, 0.16);
+  transform: scale(1.05);
+}
+
+/* Pill Buttons */
+.btn-keo-primary {
+  background: var(--accent-terracotta);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 10px 24px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 12px rgba(190, 123, 104, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-keo-primary:hover {
+  background: var(--dock-terracotta-dark);
+  box-shadow: 0 6px 18px rgba(190, 123, 104, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-keo-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-keo-secondary {
+  background: #FFFDF9;
+  color: var(--text-dark);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(120, 80, 60, 0.04);
+}
+
+.btn-keo-secondary:hover {
+  background: var(--accent-terracotta-light);
+  color: var(--accent-terracotta);
+  border-color: rgba(190, 123, 104, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-keo-sage {
+  background: var(--accent-sage);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 10px 24px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 12px rgba(126, 150, 130, 0.25);
+}
+
+.btn-keo-sage:hover {
+  background: #6E8572;
+  box-shadow: 0 6px 18px rgba(126, 150, 130, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Upload Dropzone */
+.keo-dropzone {
+  border: 2px dashed rgba(190, 123, 104, 0.35);
+  border-radius: 24px;
+  background: rgba(255, 253, 249, 0.7);
+  transition: all 0.25s ease;
+}
+
+.keo-dropzone:hover, .keo-dropzone.dragover {
+  border-color: var(--accent-terracotta);
+  background: var(--accent-terracotta-light);
+  transform: scale(1.01);
+}
+
+/* Progress Step Pills */
+.step-pill {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(190, 123, 104, 0.08);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.step-pill.active {
+  background: var(--accent-terracotta);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(190, 123, 104, 0.25);
+}
+
+.step-pill.completed {
+  background: var(--accent-sage);
+  color: #FFFFFF;
+}
+
+/* Modern switch toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E6DED8;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 24px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+input:checked + .slider {
+  background-color: var(--accent-terracotta);
+}
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Table styling matching reference image */
+.keo-table-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border-card);
+}
+.keo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.keo-table th {
+  background: #F8F3ED;
+  color: var(--text-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-card);
+  white-space: nowrap;
+}
+.keo-table td {
+  padding: 12px 16px;
+  color: var(--text-body);
+  border-bottom: 1px solid rgba(190, 123, 104, 0.07);
+  white-space: nowrap;
+}
+.keo-table tr:hover td {
+  background-color: #FAF6F1;
+}
+
+/* Diff highlights */
+.diff-old {
+  background-color: #FEECEB;
+  color: #C0392B;
+  text-decoration: line-through;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.diff-new {
+  background-color: #EAF7ED;
+  color: #27AE60;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* Pulse animation for AI Processing */
+@keyframes soft-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+}
+.animate-soft-pulse {
+  animation: soft-pulse 2s infinite ease-in-out;
+}
+

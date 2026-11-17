@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +15,23 @@
   <link rel="stylesheet" href="/static/css/style.css">
   <style>
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .animate-fadeIn {
       animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   </style>
 </head>
+
 <body class="bg-[#F8F5EE] text-[#3A2E2B] min-h-screen p-4 sm:p-6 lg:p-8">
 
   <!-- Main Container -->
@@ -30,20 +40,24 @@
     <!-- Top Bar: Brand, Palette Swatches & Steps -->
     <header class="keo-card p-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-[#BE7B68] text-white flex items-center justify-center font-bold text-xl shadow-md">
+        <div
+          class="w-10 h-10 rounded-2xl bg-[#BE7B68] text-white flex items-center justify-center font-bold text-xl shadow-md">
           🍬
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-lg font-bold text-[#3A2E2B] tracking-tight">Kẹo Cute</h1>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#BE7B68]/15 text-[#BE7B68] font-semibold">AI Data Studio</span>
+            <h1 id="header-brand-name" class="text-lg font-bold text-[#3A2E2B] tracking-tight">Kẹo Cute</h1>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#BE7B68]/15 text-[#BE7B68] font-semibold">AI Data
+              Studio</span>
           </div>
-          <p class="text-xs text-[#96847B]">Trợ lý xử lý dữ liệu tinh tế & tối giản cho doanh nghiệp</p>
+          <p id="header-brand-desc" class="text-xs text-[#96847B]">Trợ lý xử lý dữ liệu tinh tế & tối giản cho doanh
+            nghiệp</p>
         </div>
       </div>
 
-      <!-- Color Palette Indicators from User's Image Reference -->
-      <div class="hidden lg:flex items-center gap-2 bg-[#FCFAF6] px-3 py-1.5 rounded-full border border-[#BE7B68]/15 text-xs text-[#7D6B63]">
+      <!-- Color Palette Indicators from Reference Image -->
+      <div
+        class="hidden xl:flex items-center gap-2 bg-[#FCFAF6] px-3 py-1.5 rounded-full border border-[#BE7B68]/15 text-xs text-[#7D6B63]">
         <span class="font-medium">Tone màu:</span>
         <span class="w-3.5 h-3.5 rounded-full bg-[#FAF7F2] border border-stone-300" title="Soft Ivory"></span>
         <span class="w-3.5 h-3.5 rounded-full bg-[#DFAB7B]" title="Muted Terracotta / Sand"></span>
@@ -52,22 +66,25 @@
         <span class="w-3.5 h-3.5 rounded-full bg-[#644D42]" title="Deep Brown"></span>
       </div>
 
-      <!-- Step Navigation Pills -->
+      <!-- Step Navigation Pills (6 Steps) -->
       <nav class="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 md:pb-0">
         <div class="step-pill active" data-step="1">
           <span>1</span><span>Hướng dẫn</span>
         </div>
         <div class="step-pill" data-step="2">
-          <span>2</span><span>Nhập file</span>
+          <span>2</span><span>Bối cảnh DN</span>
         </div>
         <div class="step-pill" data-step="3">
-          <span>3</span><span>Làm sạch</span>
+          <span>3</span><span>Nhập file</span>
         </div>
         <div class="step-pill" data-step="4">
-          <span>4</span><span>Xem trước & Duyệt</span>
+          <span>4</span><span>Làm sạch</span>
         </div>
         <div class="step-pill" data-step="5">
-          <span>5</span><span>Kết quả & Báo cáo</span>
+          <span>5</span><span>Xem trước & Duyệt</span>
+        </div>
+        <div class="step-pill" data-step="6">
+          <span>6</span><span>Kết quả & Báo cáo</span>
         </div>
       </nav>
     </header>
@@ -78,7 +95,9 @@
       <!-- Left Vertical Dock (Faithfully replicated from Reference Image) -->
       <aside class="keo-dock sticky top-6 hidden md:flex shrink-0">
         <!-- Top Leaf/Candy Circular Button -->
-        <button class="w-11 h-11 rounded-full bg-white text-[#BE7B68] flex items-center justify-center shadow-md mb-2 hover:scale-105 transition-transform" title="Kẹo Cute Hub">
+        <button
+          class="w-11 h-11 rounded-full bg-white text-[#BE7B68] flex items-center justify-center shadow-md mb-2 hover:scale-105 transition-transform"
+          title="Kẹo Cute Hub">
           <i data-lucide="sparkles" class="w-5 h-5 text-[#BE7B68]"></i>
         </button>
 
@@ -86,19 +105,23 @@
         <button class="dock-btn active" data-step="1" title="Giới thiệu & Hướng dẫn">
           <i data-lucide="home" class="w-5 h-5"></i>
         </button>
-        <button class="dock-btn" data-step="2" title="Nhập tệp dữ liệu">
+        <button class="dock-btn" data-step="2" title="Bối cảnh Doanh nghiệp">
+          <i data-lucide="building-2" class="w-5 h-5"></i>
+        </button>
+        <button class="dock-btn" data-step="3" title="Nhập tệp dữ liệu">
           <i data-lucide="upload-cloud" class="w-5 h-5"></i>
         </button>
-        <button class="dock-btn" data-step="3" title="Quy tắc làm sạch AI">
+        <button class="dock-btn" data-step="4" title="Quy tắc làm sạch AI">
           <i data-lucide="sliders" class="w-5 h-5"></i>
         </button>
-        <button class="dock-btn" data-step="4" title="Xem trước & Phê duyệt">
+        <button class="dock-btn" data-step="5" title="Xem trước & Phê duyệt">
           <i data-lucide="file-check-2" class="w-5 h-5"></i>
         </button>
-        <button class="dock-btn" data-step="5" title="Dashboard phân tích">
+        <button class="dock-btn" data-step="6" title="Dashboard phân tích">
           <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
         </button>
-        <button class="dock-btn mt-6" id="btn-dock-reset" onclick="document.getElementById('btn-reset-workflow').click()" title="Làm mới toàn bộ">
+        <button class="dock-btn mt-6" id="btn-dock-reset"
+          onclick="document.getElementById('btn-reset-workflow').click()" title="Làm mới toàn bộ">
           <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
         </button>
       </aside>
@@ -111,14 +134,16 @@
           <!-- Hero Banner -->
           <div class="keo-card p-8 bg-gradient-to-br from-white via-[#FCFAF6] to-[#F7EBE8] border-[#BE7B68]/20">
             <div class="max-w-2xl">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BE7B68]/10 text-[#BE7B68] font-semibold text-xs mb-3">
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BE7B68]/10 text-[#BE7B68] font-semibold text-xs mb-3">
                 🍬 Chào mừng đến với Kẹo Cute
               </span>
               <h2 class="text-3xl font-extrabold text-[#3A2E2B] tracking-tight leading-tight">
                 Xử lý & Chuẩn hóa Dữ liệu Thông minh, Tinh tế và Tối giản
               </h2>
               <p class="text-[#7D6B63] mt-3 text-sm leading-relaxed">
-                Hệ thống AI chuyên dụng giúp doanh nghiệp tự động phát hiện lỗi sai, điền dữ liệu khuyết thiếu, chuẩn hóa định dạng số điện thoại, ngày tháng, tên khách hàng và báo cáo thống kê trực quan.
+                Hệ thống AI chuyên biệt giúp doanh nghiệp tự động phát hiện lỗi sai, điền dữ liệu khuyết thiếu, chuẩn
+                hóa định dạng số điện thoại, ngày tháng, tên khách hàng và trực quan hóa báo cáo phân tích.
               </p>
 
               <div class="mt-6 flex flex-wrap items-center gap-4">
@@ -126,9 +151,9 @@
                   <span>Bắt đầu ngay</span>
                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
-                <button onclick="loadSampleData(); goToStep(2);" class="btn-keo-secondary text-sm">
-                  <span>Dùng thử dữ liệu mẫu Kẹo Cute</span>
-                  <i data-lucide="sparkles" class="w-4 h-4 text-[#DFAB7B]"></i>
+                <button onclick="goToStep(2);" class="btn-keo-secondary text-sm">
+                  <span>Thiết lập bối cảnh doanh nghiệp</span>
+                  <i data-lucide="building-2" class="w-4 h-4 text-[#BE7B68]"></i>
                 </button>
               </div>
             </div>
@@ -139,86 +164,247 @@
             <div class="flex items-center justify-between mb-6">
               <div>
                 <h3 class="font-bold text-[#3A2E2B] text-base">Hướng dẫn người dùng trước khi bắt đầu</h3>
-                <p class="text-xs text-[#96847B]">Quy trình 4 bước đơn giản, minh bạch và có quyền phê duyệt kiểm soát</p>
+                <p class="text-xs text-[#96847B]">Quy trình đơn giản, minh bạch và có quyền phê duyệt kiểm soát</p>
               </div>
               <span class="text-xs font-semibold text-[#7E9682] bg-[#7E9682]/10 px-3 py-1 rounded-full">
                 ✓ Dễ dàng thao tác 100%
               </span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5">
               <!-- Guide Step 1 -->
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex flex-col justify-between">
                 <div>
-                  <div class="w-8 h-8 rounded-xl bg-[#BE7B68] text-white flex items-center justify-center font-bold text-xs mb-3">
+                  <div
+                    class="w-8 h-8 rounded-xl bg-[#BE7B68] text-white flex items-center justify-center font-bold text-xs mb-3">
                     01
                   </div>
-                  <h4 class="font-bold text-sm text-[#3A2E2B]">Nhập file dữ liệu</h4>
-                  <p class="text-xs text-[#7D6B63] mt-1.5 leading-relaxed">
-                    Tải lên file Excel (.xlsx), CSV hoặc JSON. Bạn cũng có thể bấm 1 chạm để nạp bộ dữ liệu mẫu Kẹo Cute.
+                  <h4 class="font-bold text-xs text-[#3A2E2B]">Bối cảnh doanh nghiệp</h4>
+                  <p class="text-[11px] text-[#7D6B63] mt-1.5 leading-relaxed">
+                    Nhập loại hình kinh doanh (bắt buộc) và thông tin vận hành để AI hiểu đặc thù của bạn.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[11px] text-[#96847B]">
-                  Hỗ trợ kéo & thả trực tiếp
+                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[10px] text-[#BE7B68] font-semibold">
+                  Tối ưu hóa theo ngành
                 </div>
               </div>
 
               <!-- Guide Step 2 -->
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex flex-col justify-between">
                 <div>
-                  <div class="w-8 h-8 rounded-xl bg-[#DFAB7B] text-white flex items-center justify-center font-bold text-xs mb-3">
+                  <div
+                    class="w-8 h-8 rounded-xl bg-[#DFAB7B] text-white flex items-center justify-center font-bold text-xs mb-3">
                     02
                   </div>
-                  <h4 class="font-bold text-sm text-[#3A2E2B]">Tự động làm sạch</h4>
-                  <p class="text-xs text-[#7D6B63] mt-1.5 leading-relaxed">
-                    AI Agent lọc trùng, điền ô trống, chuẩn hóa họ tên Tiếng Việt, định dạng SĐT 10 số và đồng bộ ngày tháng.
+                  <h4 class="font-bold text-xs text-[#3A2E2B]">Nhập file dữ liệu</h4>
+                  <p class="text-[11px] text-[#7D6B63] mt-1.5 leading-relaxed">
+                    Tải lên file Excel (.xlsx), CSV hoặc JSON. Hoặc bấm 1 chạm để thử dữ liệu mẫu Kẹo Cute.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[11px] text-[#96847B]">
-                  Tùy chỉnh linh hoạt bằng prompt
+                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[10px] text-[#96847B]">
+                  Hỗ trợ kéo thả trực quan
                 </div>
               </div>
 
               <!-- Guide Step 3 -->
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex flex-col justify-between">
                 <div>
-                  <div class="w-8 h-8 rounded-xl bg-[#7E9682] text-white flex items-center justify-center font-bold text-xs mb-3">
+                  <div
+                    class="w-8 h-8 rounded-xl bg-[#7E9682] text-white flex items-center justify-center font-bold text-xs mb-3">
                     03
                   </div>
-                  <h4 class="font-bold text-sm text-[#3A2E2B]">Xem trước & Phê duyệt</h4>
-                  <p class="text-xs text-[#7D6B63] mt-1.5 leading-relaxed">
-                    Xem bảng so sánh trước/sau. Nếu chưa ưng ý, gửi yêu cầu để AI xử lý lại đến khi bạn hoàn toàn hài lòng!
+                  <h4 class="font-bold text-xs text-[#3A2E2B]">Tự động làm sạch</h4>
+                  <p class="text-[11px] text-[#7D6B63] mt-1.5 leading-relaxed">
+                    AI lọc trùng, điền ô trống, chuẩn hóa Họ tên, SĐT 10 số, đồng bộ Ngày tháng và tiền tệ.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[11px] text-[#96847B]">
-                  Vòng lặp sửa chữa đa vòng
+                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[10px] text-[#96847B]">
+                  Tùy biến bằng prompt AI
                 </div>
               </div>
 
               <!-- Guide Step 4 -->
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex flex-col justify-between">
                 <div>
-                  <div class="w-8 h-8 rounded-xl bg-[#644D42] text-white flex items-center justify-center font-bold text-xs mb-3">
+                  <div
+                    class="w-8 h-8 rounded-xl bg-[#D49586] text-white flex items-center justify-center font-bold text-xs mb-3">
                     04
                   </div>
-                  <h4 class="font-bold text-sm text-[#3A2E2B]">Kết quả & Báo cáo</h4>
-                  <p class="text-xs text-[#7D6B63] mt-1.5 leading-relaxed">
+                  <h4 class="font-bold text-xs text-[#3A2E2B]">Xem trước & Duyệt</h4>
+                  <p class="text-[11px] text-[#7D6B63] mt-1.5 leading-relaxed">
+                    Xem bảng so sánh trước/sau. Nếu chưa ưng ý, yêu cầu AI xử lý lại đến khi bạn hài lòng!
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[10px] text-[#96847B]">
+                  Vòng lặp sửa chữa đa vòng
+                </div>
+              </div>
+
+              <!-- Guide Step 5 -->
+              <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex flex-col justify-between">
+                <div>
+                  <div
+                    class="w-8 h-8 rounded-xl bg-[#644D42] text-white flex items-center justify-center font-bold text-xs mb-3">
+                    05
+                  </div>
+                  <h4 class="font-bold text-xs text-[#3A2E2B]">Kết quả & Báo cáo</h4>
+                  <p class="text-[11px] text-[#7D6B63] mt-1.5 leading-relaxed">
                     Xem dashboard đồ thị sóng & donut tone be pastel, tải về file sạch chuẩn Excel, CSV hoặc JSON.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[11px] text-[#96847B]">
-                  Xuất file định dạng chuẩn A+
+                <div class="mt-4 pt-3 border-t border-[#BE7B68]/10 text-[10px] text-[#96847B]">
+                  Xuất file chuẩn A+
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- =================== VIEW 2: FILE UPLOAD & PREVIEW =================== -->
+        <!-- =================== VIEW 2: BUSINESS CONTEXT (BỐI CẢNH DOANH NGHIỆP - MỚI) =================== -->
         <section id="view-step-2" class="step-view hidden space-y-6">
-          <!-- Dropzone Card -->
           <div class="keo-card p-6 sm:p-8">
-            <div class="flex items-center justify-between mb-4">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#BE7B68]/15">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h2 class="text-xl font-bold text-[#3A2E2B]">Bối cảnh Doanh nghiệp của bạn</h2>
+                  <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#BE7B68]/15 text-[#BE7B68] font-semibold">Bước
+                    chuẩn bị trước khi nhập file</span>
+                </div>
+                <p class="text-xs text-[#96847B] mt-1">
+                  Giúp AI Agent Kẹo Cute hiểu rõ mô hình hoạt động để tự động cá nhân hóa quy tắc xử lý dữ liệu sát với
+                  thực tế nhất.
+                </p>
+              </div>
+              <span
+                class="text-xs text-[#BE7B68] font-medium bg-[#F7EBE8] px-3 py-1 rounded-full self-start sm:self-auto">
+                * Trường có dấu sao là bắt buộc
+              </span>
+            </div>
+
+            <form id="business-context-form" class="mt-6 space-y-6" onsubmit="event.preventDefault();">
+              <!-- 1. Tên Doanh nghiệp / Cửa hàng -->
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-[#3A2E2B]">
+                  Tên Doanh nghiệp / Thương hiệu của bạn <span class="text-[#96847B] font-normal">(Tùy chọn)</span>
+                </label>
+                <div class="relative">
+                  <input type="text" id="ctx-business-name" value="Kẹo Cute"
+                    placeholder="Ví dụ: Kẹo Cute, Tiệm Bánh Nhỏ, Fresh Mart..."
+                    class="w-full text-xs p-3.5 pl-10 rounded-xl border border-[#BE7B68]/25 bg-[#FCFAF6] focus:outline-none focus:border-[#BE7B68] text-[#3A2E2B] transition-colors">
+                  <i data-lucide="store" class="w-4 h-4 text-[#BE7B68] absolute left-3.5 top-3.5"></i>
+                </div>
+              </div>
+
+              <!-- 2. Loại hình Doanh nghiệp (BẮT BUỘC) -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <label class="block text-xs font-bold text-[#3A2E2B]">
+                    Loại hình doanh nghiệp / Lĩnh vực hoạt động <span class="text-[#C0392B] font-bold">* (Bắt
+                      buộc)</span>
+                  </label>
+                  <span id="ctx-type-error" class="text-[11px] text-[#C0392B] hidden font-semibold animate-pulse">
+                    ⚠️ Vui lòng chọn hoặc nhập loại hình doanh nghiệp trước khi tiếp tục
+                  </span>
+                </div>
+
+                <!-- Quick Select Pills -->
+                <div class="flex flex-wrap items-center gap-2">
+                  <button type="button"
+                    class="biz-type-pill active text-xs px-3.5 py-2 rounded-full border border-[#BE7B68] bg-[#BE7B68] text-white transition-all flex items-center gap-1.5"
+                    data-val="F&B / Bánh kẹo & Đồ uống">
+                    <span>🍬</span><span>F&B / Bánh kẹo & Đồ uống</span>
+                  </button>
+                  <button type="button"
+                    class="biz-type-pill text-xs px-3.5 py-2 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] text-[#63534B] hover:bg-[#F7EBE8] hover:border-[#BE7B68] transition-all flex items-center gap-1.5"
+                    data-val="Bán lẻ / Thời trang & Mỹ phẩm">
+                    <span>🛍️</span><span>Bán lẻ / Thời trang & Mỹ phẩm</span>
+                  </button>
+                  <button type="button"
+                    class="biz-type-pill text-xs px-3.5 py-2 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] text-[#63534B] hover:bg-[#F7EBE8] hover:border-[#BE7B68] transition-all flex items-center gap-1.5"
+                    data-val="Thương mại điện tử (E-commerce / Shopee / TikTok)">
+                    <span>🌐</span><span>Thương mại điện tử (E-commerce)</span>
+                  </button>
+                  <button type="button"
+                    class="biz-type-pill text-xs px-3.5 py-2 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] text-[#63534B] hover:bg-[#F7EBE8] hover:border-[#BE7B68] transition-all flex items-center gap-1.5"
+                    data-val="Dịch vụ / Spa / Nhà hàng / Khách sạn">
+                    <span>💆</span><span>Dịch vụ / Spa / Nhà hàng</span>
+                  </button>
+                  <button type="button"
+                    class="biz-type-pill text-xs px-3.5 py-2 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] text-[#63534B] hover:bg-[#F7EBE8] hover:border-[#BE7B68] transition-all flex items-center gap-1.5"
+                    data-val="Sản xuất / Phân phối sỉ (B2B)">
+                    <span>🏭</span><span>Sản xuất & Phân phối</span>
+                  </button>
+                  <button type="button"
+                    class="biz-type-pill text-xs px-3.5 py-2 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] text-[#63534B] hover:bg-[#F7EBE8] hover:border-[#BE7B68] transition-all flex items-center gap-1.5"
+                    data-val="Khác">
+                    <span>📦</span><span>Khác</span>
+                  </button>
+                </div>
+
+                <!-- Direct text input for Business Type -->
+                <div class="relative mt-2">
+                  <input type="text" id="ctx-business-type" value="F&B / Bánh kẹo & Đồ uống"
+                    placeholder="Chọn từ gợi ý phía trên hoặc tự nhập loại hình doanh nghiệp của bạn..."
+                    class="w-full text-xs p-3.5 pl-10 rounded-xl border border-[#BE7B68]/30 bg-white focus:outline-none focus:border-[#BE7B68] text-[#3A2E2B] transition-colors"
+                    required>
+                  <i data-lucide="briefcase" class="w-4 h-4 text-[#BE7B68] absolute left-3.5 top-3.5"></i>
+                </div>
+              </div>
+
+              <!-- 3. Thông tin bổ sung nếu cần -->
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-[#3A2E2B]">
+                  Thông tin bổ sung / Ghi chú đặc thù vận hành <span class="text-[#96847B] font-normal">(Không bắt
+                    buộc)</span>
+                </label>
+                <p class="text-[11px] text-[#96847B]">
+                  Nhập các lưu ý về dữ liệu như tiêu chuẩn khách hàng VIP, cách đặt mã đơn, quy định kiểm tra số điện
+                  thoại...
+                </p>
+                <textarea id="ctx-additional-info" rows="3"
+                  placeholder="Ví dụ: Doanh nghiệp bán lẻ đồ ngọt, khách đặt online và qua cửa hàng. Cần chuẩn hóa số điện thoại 10 số để gửi tin nhắn chăm sóc khách hàng, khách mua từ 500k xếp hạng VIP..."
+                  class="w-full text-xs p-3.5 rounded-xl border border-[#BE7B68]/25 bg-[#FCFAF6] focus:outline-none focus:border-[#BE7B68] text-[#3A2E2B] transition-colors"></textarea>
+              </div>
+
+              <!-- Action Buttons -->
+              <div
+                class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#BE7B68]/15">
+                <button type="button" onclick="goToStep(1)" class="btn-keo-secondary text-xs w-full sm:w-auto">
+                  <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                  <span>Quay lại hướng dẫn</span>
+                </button>
+
+                <button type="button" id="btn-save-context" class="btn-keo-primary text-xs w-full sm:w-auto shadow-md">
+                  <span>Lưu bối cảnh & Tiếp tục nhập file</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- =================== VIEW 3: FILE UPLOAD & PREVIEW =================== -->
+        <section id="view-step-3" class="step-view hidden space-y-6">
+          <div class="keo-card p-6 sm:p-8">
+
+            <!-- Active Context Banner -->
+            <div id="active-context-banner"
+              class="flex items-center justify-between p-3.5 px-5 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/20 text-xs mb-6 shadow-sm">
+              <div class="flex items-center gap-2.5 text-[#63534B]">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#7E9682]"></span>
+                <span>Bối cảnh áp dụng: <strong id="active-biz-name" class="text-[#3A2E2B]">Kẹo Cute</strong> • Lĩnh
+                  vực: <span id="active-biz-type" class="text-[#BE7B68] font-bold">F&B / Bánh kẹo & Đồ
+                    uống</span></span>
+              </div>
+              <button type="button" onclick="goToStep(2)"
+                class="text-xs text-[#BE7B68] hover:underline font-semibold flex items-center gap-1">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span>Chỉnh sửa bối cảnh</span>
+              </button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
               <div>
                 <h2 class="text-xl font-bold text-[#3A2E2B]">Nhập file dữ liệu</h2>
                 <p class="text-xs text-[#96847B]">Chọn hoặc kéo thả tệp bảng tính cần làm sạch vào khu vực bên dưới</p>
@@ -230,9 +416,11 @@
             </div>
 
             <!-- Drag & Drop Zone -->
-            <div id="dropzone" class="keo-dropzone p-10 flex flex-col items-center justify-center text-center cursor-pointer">
+            <div id="dropzone"
+              class="keo-dropzone p-10 flex flex-col items-center justify-center text-center cursor-pointer">
               <input type="file" id="file-input" class="hidden" accept=".xlsx,.xls,.csv,.json">
-              <div class="w-16 h-16 rounded-3xl bg-[#F7EBE8] text-[#BE7B68] flex items-center justify-center mb-4 shadow-sm">
+              <div
+                class="w-16 h-16 rounded-3xl bg-[#F7EBE8] text-[#BE7B68] flex items-center justify-center mb-4 shadow-sm">
                 <i data-lucide="cloud-upload" class="w-8 h-8"></i>
               </div>
               <h3 class="font-bold text-sm text-[#3A2E2B]">Kéo và thả tệp tại đây hoặc bấm để chọn tệp</h3>
@@ -240,18 +428,23 @@
                 Hỗ trợ định dạng Microsoft Excel (.xlsx, .xls), CSV hoặc JSON dung lượng tối đa 25MB
               </p>
               <div class="mt-4 flex items-center gap-2">
-                <span class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.xlsx</span>
-                <span class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.csv</span>
-                <span class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.json</span>
+                <span
+                  class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.xlsx</span>
+                <span
+                  class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.csv</span>
+                <span
+                  class="text-[11px] px-2.5 py-1 rounded-full bg-white border border-[#BE7B68]/20 font-medium text-[#7D6B63]">.json</span>
               </div>
             </div>
 
             <!-- Loaded State Details -->
             <div id="upload-success-state" class="hidden mt-6 space-y-6">
               <!-- Quality Scan Summary Card -->
-              <div class="p-5 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/20 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div
+                class="p-5 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/20 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-2xl bg-[#7E9682]/15 text-[#7E9682] flex items-center justify-center font-bold text-xl">
+                  <div
+                    class="w-12 h-12 rounded-2xl bg-[#7E9682]/15 text-[#7E9682] flex items-center justify-center font-bold text-xl">
                     📊
                   </div>
                   <div>
@@ -271,7 +464,9 @@
                     <span id="health-score-val" class="font-bold text-[#BE7B68]">65%</span>
                   </div>
                   <div class="w-full h-2.5 bg-[#E6DED8] rounded-full overflow-hidden">
-                    <div id="health-bar" class="h-full bg-gradient-to-r from-[#DFAB7B] to-[#BE7B68] rounded-full transition-all duration-500" style="width: 65%;"></div>
+                    <div id="health-bar"
+                      class="h-full bg-gradient-to-r from-[#DFAB7B] to-[#BE7B68] rounded-full transition-all duration-500"
+                      style="width: 65%;"></div>
                   </div>
                 </div>
 
@@ -295,14 +490,15 @@
                   <p id="messy-phone-count" class="font-bold text-base text-[#BE7B68] mt-0.5">0</p>
                 </div>
                 <div class="p-3 bg-white rounded-xl border border-[#BE7B68]/15">
-                  <span class="text-[#96847B]">Tên chưa viết hoa:</span>
+                  <span class="text-[#96847B]">Chữ chưa viết hoa:</span>
                   <p id="messy-name-count" class="font-bold text-base text-[#BE7B68] mt-0.5">0</p>
                 </div>
               </div>
 
               <!-- Raw Preview Table -->
               <div>
-                <h4 class="font-bold text-xs uppercase tracking-wider text-[#96847B] mb-2">Xem trước dữ liệu gốc ban đầu</h4>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-[#96847B] mb-2">Xem trước dữ liệu gốc ban đầu
+                </h4>
                 <div class="keo-table-wrapper max-h-80">
                   <table id="raw-data-table" class="keo-table">
                     <!-- Populated via JS -->
@@ -318,13 +514,14 @@
           </div>
         </section>
 
-        <!-- =================== VIEW 3: CLEANING & PROCESSING RULES =================== -->
-        <section id="view-step-3" class="step-view hidden space-y-6">
+        <!-- =================== VIEW 4: CLEANING & PROCESSING RULES =================== -->
+        <section id="view-step-4" class="step-view hidden space-y-6">
           <div class="keo-card p-6 sm:p-8">
             <div class="flex items-center justify-between mb-6">
               <div>
                 <h2 class="text-xl font-bold text-[#3A2E2B]">Cấu hình làm sạch & xử lý dữ liệu</h2>
-                <p class="text-xs text-[#96847B]">Chọn các quy tắc làm sạch tự động hoặc nhập yêu cầu tùy biến cho AI Agent</p>
+                <p class="text-xs text-[#96847B]">Chọn các quy tắc làm sạch tự động hoặc nhập yêu cầu tùy biến cho AI
+                  Agent</p>
               </div>
               <span class="text-xs font-semibold px-3 py-1 bg-[#BE7B68]/10 text-[#BE7B68] rounded-full">
                 AI Engine: Kẹo Cute v2.6
@@ -345,11 +542,12 @@
                 </label>
               </div>
 
-              <!-- Rule 2: Chuẩn hóa họ tên -->
+              <!-- Rule 2: Chuẩn hóa viết hoa kênh bán, sản phẩm & họ tên -->
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex items-center justify-between">
                 <div>
-                  <h4 class="font-bold text-sm text-[#3A2E2B]">Chuẩn hóa Họ & Tên Tiếng Việt</h4>
-                  <p class="text-xs text-[#7D6B63] mt-0.5">Viết hoa chữ cái đầu (Title Case), sửa lỗi chữ thường/hoa lẫn lộn</p>
+                  <h4 class="font-bold text-sm text-[#3A2E2B]">Viết hoa Kênh bán, Sản phẩm & Họ tên</h4>
+                  <p class="text-xs text-[#7D6B63] mt-0.5">Tự động viết hoa chuẩn Title Case cho tên kênh bán, mặt hàng,
+                    phương thức thanh toán và họ tên</p>
                 </div>
                 <label class="switch shrink-0 ml-4">
                   <input type="checkbox" id="opt-names" checked>
@@ -361,7 +559,8 @@
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex items-center justify-between">
                 <div>
                   <h4 class="font-bold text-sm text-[#3A2E2B]">Chuẩn hóa số điện thoại</h4>
-                  <p class="text-xs text-[#7D6B63] mt-0.5">Xóa dấu chấm, khoảng trắng, bỏ +84 và đồng bộ 10 số (09xx, 08xx...)</p>
+                  <p class="text-xs text-[#7D6B63] mt-0.5">Xóa dấu chấm, khoảng trắng, bỏ +84 và đồng bộ 10 số (09xx,
+                    08xx...)</p>
                 </div>
                 <label class="switch shrink-0 ml-4">
                   <input type="checkbox" id="opt-phone" checked>
@@ -373,7 +572,8 @@
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex items-center justify-between">
                 <div>
                   <h4 class="font-bold text-sm text-[#3A2E2B]">Đồng bộ định dạng ngày tháng</h4>
-                  <p class="text-xs text-[#7D6B63] mt-0.5">Quy đổi các kiểu ngày hỗn hợp về định dạng chuẩn DD/MM/YYYY</p>
+                  <p class="text-xs text-[#7D6B63] mt-0.5">Quy đổi các kiểu ngày hỗn hợp về định dạng chuẩn DD/MM/YYYY
+                  </p>
                 </div>
                 <label class="switch shrink-0 ml-4">
                   <input type="checkbox" id="opt-dates" checked>
@@ -385,7 +585,8 @@
               <div class="p-4 rounded-2xl bg-[#FCFAF6] border border-[#BE7B68]/15 flex items-center justify-between">
                 <div>
                   <h4 class="font-bold text-sm text-[#3A2E2B]">Loại bỏ khoảng trắng thừa</h4>
-                  <p class="text-xs text-[#7D6B63] mt-0.5">Trim khoảng cách đầu/cuối chuỗi và thu gọn khoảng trắng kép</p>
+                  <p class="text-xs text-[#7D6B63] mt-0.5">Trim khoảng cách đầu/cuối chuỗi và thu gọn khoảng trắng kép
+                  </p>
                 </div>
                 <label class="switch shrink-0 ml-4">
                   <input type="checkbox" id="opt-whitespace" checked>
@@ -428,23 +629,34 @@
                 <h4 class="font-bold text-sm text-[#3A2E2B]">Yêu cầu bổ sung cho AI Agent Kẹo Cute</h4>
               </div>
               <p class="text-xs text-[#96847B] mb-3">
-                Nhập bất kỳ câu lệnh bằng ngôn ngữ tự nhiên để yêu cầu AI Agent tính toán thêm hoặc tái cấu trúc dữ liệu:
+                Nhập bất kỳ câu lệnh bằng ngôn ngữ tự nhiên để yêu cầu AI Agent tính toán thêm hoặc tái cấu trúc dữ
+                liệu:
               </p>
-              <textarea id="ai-custom-prompt" rows="2" placeholder="Ví dụ: Tạo cột Thành tiền = Số lượng x Đơn giá, Phân loại khách hàng VIP..." class="w-full text-xs p-3 rounded-xl border border-[#BE7B68]/20 focus:outline-none focus:border-[#BE7B68] bg-[#FCFAF6]"></textarea>
+              <textarea id="ai-custom-prompt" rows="2"
+                placeholder="Ví dụ: Tạo cột Thành tiền = Số lượng x Đơn giá, Phân loại khách hàng VIP..."
+                class="w-full text-xs p-3 rounded-xl border border-[#BE7B68]/20 focus:outline-none focus:border-[#BE7B68] bg-[#FCFAF6]"></textarea>
 
               <!-- Quick prompt tags -->
               <div class="mt-2.5 flex flex-wrap items-center gap-2">
                 <span class="text-[11px] text-[#96847B]">Gợi ý nhanh:</span>
-                <button type="button" class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors" data-prompt="Tạo thêm cột Thành tiền">
+                <button type="button"
+                  class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors"
+                  data-prompt="Tạo thêm cột Thành tiền">
                   + Tính Thành tiền
                 </button>
-                <button type="button" class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors" data-prompt="Phân loại khách hàng VIP">
+                <button type="button"
+                  class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors"
+                  data-prompt="Phân loại khách hàng VIP">
                   + Phân loại VIP
                 </button>
-                <button type="button" class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors" data-prompt="Tách cột họ và tên">
+                <button type="button"
+                  class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors"
+                  data-prompt="Tách cột họ và tên">
                   + Tách họ và tên
                 </button>
-                <button type="button" class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors" data-prompt="Loại bỏ các đơn hàng đã hủy">
+                <button type="button"
+                  class="ai-suggest-pill text-[11px] px-2.5 py-1 rounded-full bg-[#FCFAF6] border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8] hover:text-[#BE7B68] transition-colors"
+                  data-prompt="Loại bỏ các đơn hàng đã hủy">
                   + Lọc bỏ đơn hủy
                 </button>
               </div>
@@ -460,15 +672,17 @@
           </div>
         </section>
 
-        <!-- =================== VIEW 4: PREVIEW & APPROVAL LOOP (CORE REQUIREMENT) =================== -->
-        <section id="view-step-4" class="step-view hidden space-y-6">
+        <!-- =================== VIEW 5: PREVIEW & APPROVAL LOOP =================== -->
+        <section id="view-step-5" class="step-view hidden space-y-6">
           <div class="keo-card p-6 sm:p-8">
             <!-- Header & Iteration Badge -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#BE7B68]/15">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#BE7B68]/15">
               <div>
                 <div class="flex items-center gap-2">
                   <h2 class="text-xl font-bold text-[#3A2E2B]">Xem trước bản đã xử lý & Phê duyệt</h2>
-                  <span id="preview-iteration-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-[#7E9682]/15 text-[#7E9682] font-semibold">
+                  <span id="preview-iteration-badge"
+                    class="text-xs px-2.5 py-0.5 rounded-full bg-[#7E9682]/15 text-[#7E9682] font-semibold">
                     Phiên bản làm sạch #1
                   </span>
                 </div>
@@ -513,8 +727,9 @@
               </div>
             </div>
 
-            <!-- RE-PROCESSING FEEDBACK DRAWER (Toggled when user clicks 'Yêu cầu xử lý lại') -->
-            <div id="reprocess-drawer" class="hidden p-5 mb-6 rounded-2xl bg-[#FFF7F4] border-2 border-[#BE7B68]/30 shadow-md">
+            <!-- RE-PROCESSING FEEDBACK DRAWER -->
+            <div id="reprocess-drawer"
+              class="hidden p-5 mb-6 rounded-2xl bg-[#FFF7F4] border-2 border-[#BE7B68]/30 shadow-md">
               <div class="flex items-center justify-between mb-3">
                 <div class="flex items-center gap-2">
                   <i data-lucide="refresh-cw" class="w-5 h-5 text-[#BE7B68]"></i>
@@ -528,21 +743,61 @@
 
               <!-- Quick tags -->
               <div class="flex flex-wrap items-center gap-2 mb-3">
-                <button type="button" class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8]" data-text="Hãy loại bỏ các đơn hàng có trạng thái Đã hủy">
-                  Lọc bỏ đơn hàng hủy
+                <button type="button"
+                  class="feedback-tag text-xs font-semibold px-3 py-1.5 rounded-full bg-[#BE7B68] text-white hover:bg-[#A96B5A] shadow-sm transition"
+                  data-text="sửa tất cả các lỗi">
+                  ⚡ Sửa tất cả các lỗi
                 </button>
-                <button type="button" class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8]" data-text="Hãy tính thêm cột Thành tiền = Số lượng * Đơn giá">
-                  Tính thêm cột Thành tiền
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="thêm dấu tiếng Việt">
+                  + Thêm dấu Tiếng Việt (Rà soát từ file)
                 </button>
-                <button type="button" class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8]" data-text="Hãy phân loại khách hàng VIP nếu tổng tiền cao">
-                  Thêm xếp hạng VIP
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="sửa số âm thành số dương">
+                  + Sửa số âm thành số dương
                 </button>
-                <button type="button" class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/20 text-[#63534B] hover:bg-[#F7EBE8]" data-text="Hãy tách riêng cột Họ đệm và Tên">
-                  Tách riêng cột Họ và Tên
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="viết hoa chữ cái đầu cho tên các kênh bán và tên sản phẩm">
+                  + Viết hoa kênh bán & SP
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="điền 'Không có' vào ô trống">
+                  + Điền 'Không có' vào ô trống
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="chuẩn hóa đơn giá, bỏ .000 và đơn vị tiền tệ">
+                  + Bỏ .000 và đơn vị tiền tệ
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="tính lại cột Thành tiền = Số lượng * Đơn giá">
+                  + Tính lại Thành tiền
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="chuẩn hóa số điện thoại 10 số và đồng bộ ngày tháng">
+                  + Chuẩn hóa SĐT 10 số & Ngày
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="tách riêng cột Họ đệm và Tên">
+                  + Tách Họ và Tên
+                </button>
+                <button type="button"
+                  class="feedback-tag text-xs px-3 py-1 rounded-full bg-white border border-[#BE7B68]/30 text-[#63534B] hover:bg-[#F7EBE8]"
+                  data-text="loại bỏ các đơn hàng có trạng thái Đã hủy">
+                  + Lọc bỏ đơn hủy
                 </button>
               </div>
 
-              <textarea id="reprocess-feedback-text" rows="3" placeholder="Nhập thêm yêu cầu hoặc phản hồi cụ thể tại đây..." class="w-full text-xs p-3 rounded-xl border border-[#BE7B68]/30 bg-white focus:outline-none focus:border-[#BE7B68]"></textarea>
+              <textarea id="reprocess-feedback-text" rows="3"
+                placeholder="Nhập bất kỳ yêu cầu sửa lỗi nào (Ví dụ: 'Sửa tất cả các lỗi', 'Thay CK bằng Chuyển Khoản', 'Sửa số âm thành số dương', 'Đổi tên cột Ten_SP thành Tên Sản Phẩm', 'Xóa cột Ghi_Chu'...)"
+                class="w-full text-xs p-3 rounded-xl border border-[#BE7B68]/30 bg-white focus:outline-none focus:border-[#BE7B68]"></textarea>
 
               <div class="mt-3 flex justify-end gap-3">
                 <button id="btn-submit-reprocess" class="btn-keo-primary text-xs">
@@ -554,7 +809,9 @@
 
             <!-- Preview Tabs Navigation -->
             <div class="flex items-center gap-2 bg-[#F8F3ED] p-1.5 rounded-xl max-w-md mb-4 text-xs">
-              <button class="preview-tab-btn flex-1 py-1.5 px-3 rounded-lg bg-white text-[#3A2E2B] font-semibold shadow-sm text-center" data-tab="cleaned">
+              <button
+                class="preview-tab-btn flex-1 py-1.5 px-3 rounded-lg bg-white text-[#3A2E2B] font-semibold shadow-sm text-center"
+                data-tab="cleaned">
                 Bảng dữ liệu đã xử lý
               </button>
               <button class="preview-tab-btn flex-1 py-1.5 px-3 rounded-lg text-[#7D6B63] text-center" data-tab="diff">
@@ -576,7 +833,8 @@
 
             <!-- Tab 2: Diff View -->
             <div id="tab-content-diff" class="preview-tab-content hidden">
-              <p class="text-xs text-[#96847B] mb-3">Hiển thị các dòng có giá trị được phát hiện và tự động chuẩn hóa:</p>
+              <p class="text-xs text-[#96847B] mb-3">Hiển thị các dòng có giá trị được phát hiện và tự động chuẩn hóa:
+              </p>
               <div id="diff-content-list" class="space-y-2 max-h-96 overflow-y-auto pr-1">
                 <!-- Populated via JS -->
               </div>
@@ -591,19 +849,29 @@
           </div>
         </section>
 
-        <!-- =================== VIEW 5: FINAL DASHBOARD & EXPORT =================== -->
-        <!-- Faithfully replicated according to the user's uploaded layout & aesthetic -->
-        <section id="view-step-5" class="step-view hidden space-y-6">
+        <!-- =================== VIEW 6: FINAL DASHBOARD & EXPORT =================== -->
+        <section id="view-step-6" class="step-view hidden space-y-6">
 
           <!-- Dashboard Header -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="text-2xl font-extrabold text-[#3A2E2B] tracking-tight">Kẹo Cute Data Dashboard</h2>
-              <p class="text-xs text-[#96847B]">Hệ thống phân tích chất lượng dữ liệu và báo cáo tổng hợp</p>
+              <div class="flex items-center gap-2">
+                <h2 id="dash-business-name" class="text-2xl font-extrabold text-[#3A2E2B] tracking-tight">Kẹo Cute Data
+                  Dashboard</h2>
+                <span id="dash-business-type"
+                  class="text-xs px-2.5 py-0.5 rounded-full bg-[#BE7B68]/15 text-[#BE7B68] font-semibold">F&B / Bánh kẹo
+                  & Đồ uống</span>
+              </div>
+              <p class="text-xs text-[#96847B] mt-0.5">Báo cáo phân tích chất lượng dữ liệu và thống kê theo bối cảnh
+                doanh nghiệp</p>
             </div>
             <!-- Quick Export Action Buttons -->
             <div class="flex items-center gap-2">
-              <button id="btn-export-excel" class="btn-keo-primary text-xs shadow-md">
+              <button id="btn-export-docx" class="btn-keo-primary text-xs shadow-md bg-[#BE7B68] hover:bg-[#A66352] flex items-center gap-1.5" title="Tải báo cáo phân tích toàn diện định dạng Word (.docx)">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>Báo cáo Word (.docx)</span>
+              </button>
+              <button id="btn-export-excel" class="btn-keo-secondary text-xs shadow-sm hover:bg-[#F7EBE8] text-[#BE7B68] flex items-center gap-1.5" title="Tải tệp bảng tính Excel (.xlsx)">
                 <i data-lucide="download" class="w-4 h-4"></i>
                 <span>Xuất file Excel (.xlsx)</span>
               </button>
@@ -613,7 +881,8 @@
               <button id="btn-export-json" class="btn-keo-secondary text-xs">
                 <span>JSON</span>
               </button>
-              <button id="btn-reset-workflow" class="btn-keo-secondary text-xs text-[#BE7B68] hover:bg-[#F7EBE8]" title="Xử lý tệp mới">
+              <button id="btn-reset-workflow" class="btn-keo-secondary text-xs text-[#BE7B68] hover:bg-[#F7EBE8]"
+                title="Xử lý tệp mới">
                 <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                 <span>Xử lý tệp mới</span>
               </button>
@@ -625,7 +894,8 @@
             <!-- Card 1: Headcount / Records -->
             <div class="keo-card p-4 flex flex-col justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-[#DFAB7B]/20 text-[#DFAB7B] flex items-center justify-center text-xs font-bold">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#DFAB7B]/20 text-[#DFAB7B] flex items-center justify-center text-xs font-bold">
                   👥
                 </div>
                 <span class="text-xs text-[#96847B]">Tổng bản ghi</span>
@@ -636,24 +906,26 @@
               </div>
             </div>
 
-            <!-- Card 2: PTO Balance / SĐT Chuẩn -->
+            <!-- Card 2: PTO Balance / Doanh thu / SĐT Chuẩn -->
             <div class="keo-card p-4 flex flex-col justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-[#BE7B68]/20 text-[#BE7B68] flex items-center justify-center text-xs font-bold">
-                  📞
+                <div id="dash-card2-icon-wrap"
+                  class="w-8 h-8 rounded-full bg-[#BE7B68]/20 text-[#BE7B68] flex items-center justify-center text-xs font-bold">
+                  <span id="dash-card2-icon">💰</span>
                 </div>
-                <span class="text-xs text-[#96847B]">Định dạng SĐT</span>
+                <span id="dash-card2-title" class="text-xs text-[#96847B]">Tổng doanh thu</span>
               </div>
               <div class="mt-3">
-                <p class="text-2xl font-extrabold text-[#3A2E2B]">100%</p>
-                <p class="text-[11px] text-[#96847B] mt-0.5">Đã chuẩn hóa 10 số</p>
+                <p id="dash-card2-val" class="text-2xl font-extrabold text-[#3A2E2B]">0 đ</p>
+                <p id="dash-card2-sub" class="text-[11px] text-[#96847B] mt-0.5">Doanh thu chuẩn hóa</p>
               </div>
             </div>
 
             <!-- Card 3: Compliance Rate -->
             <div class="keo-card p-4 flex flex-col justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-[#7E9682]/20 text-[#7E9682] flex items-center justify-center text-xs font-bold">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#7E9682]/20 text-[#7E9682] flex items-center justify-center text-xs font-bold">
                   🛡️
                 </div>
                 <span class="text-xs text-[#96847B]">Độ sạch chuẩn</span>
@@ -667,7 +939,8 @@
             <!-- Card 4: Training / Lỗi đã sửa -->
             <div class="keo-card p-4 flex flex-col justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-[#644D42]/20 text-[#644D42] flex items-center justify-center text-xs font-bold">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#644D42]/20 text-[#644D42] flex items-center justify-center text-xs font-bold">
                   ✨
                 </div>
                 <span class="text-xs text-[#96847B]">Lỗi đã xử lý</span>
@@ -678,17 +951,18 @@
               </div>
             </div>
 
-            <!-- Card 5: Expiring Soon / Tồn đọng -->
+            <!-- Card 5: Expiring Soon / Tồn đọng / Mặt hàng -->
             <div class="keo-card p-4 flex flex-col justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-[#D49586]/20 text-[#D49586] flex items-center justify-center text-xs font-bold">
-                  🍬
+                <div id="dash-card5-icon-wrap"
+                  class="w-8 h-8 rounded-full bg-[#D49586]/20 text-[#D49586] flex items-center justify-center text-xs font-bold">
+                  <span id="dash-card5-icon">🏷️</span>
                 </div>
-                <span class="text-xs text-[#96847B]">Tồn đọng</span>
+                <span id="dash-card5-title" class="text-xs text-[#96847B]">Mặt hàng</span>
               </div>
               <div class="mt-3">
-                <p class="text-2xl font-extrabold text-[#7E9682]">0</p>
-                <p class="text-[11px] text-[#7E9682] mt-0.5">Không còn lỗi nào</p>
+                <p id="dash-card5-val" class="text-2xl font-extrabold text-[#7E9682]">0</p>
+                <p id="dash-card5-sub" class="text-[11px] text-[#7E9682] mt-0.5">Không còn lỗi nào</p>
               </div>
             </div>
           </div>
@@ -700,13 +974,11 @@
             <div class="lg:col-span-5 keo-card p-5 flex flex-col justify-between">
               <div class="flex items-center justify-between mb-2">
                 <div>
-                  <h3 class="font-bold text-sm text-[#3A2E2B]">Phân bổ dữ liệu theo Danh mục</h3>
-                  <p class="text-xs text-[#96847B]">Tỷ lệ doanh số và bản ghi các dòng sản phẩm</p>
+                  <h3 id="dash-wave-title" class="font-bold text-sm text-[#3A2E2B]">Phân bổ dữ liệu theo Sản phẩm</h3>
+                  <p id="dash-wave-sub" class="text-xs text-[#96847B]">Tỷ lệ doanh số và bản ghi các dòng sản phẩm</p>
                 </div>
-                <div class="flex items-center gap-2 text-[11px] text-[#96847B]">
-                  <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#BE7B68]"></span> Kẹo dẻo
-                  <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#DFAB7B]"></span> Mút
-                  <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#7E9682]"></span> Marshmallow
+                <div id="dash-wave-legends" class="flex items-center gap-2 text-[11px] text-[#96847B]">
+                  <!-- Populated via JS -->
                 </div>
               </div>
               <div class="h-56 relative">
@@ -717,8 +989,8 @@
             <!-- Chart 2: Donut Chart (4 Cols) -->
             <div class="lg:col-span-4 keo-card p-5 flex flex-col justify-between">
               <div>
-                <h3 class="font-bold text-sm text-[#3A2E2B]">Cơ cấu trạng thái đơn hàng</h3>
-                <p class="text-xs text-[#96847B]">Phần trăm tỷ lệ các trạng thái giao dịch</p>
+                <h3 id="dash-donut-title" class="font-bold text-sm text-[#3A2E2B]">Cơ cấu phân bổ</h3>
+                <p id="dash-donut-sub" class="text-xs text-[#96847B]">Phần trăm tỷ lệ các nhóm dữ liệu</p>
               </div>
               <div class="h-56 relative flex items-center justify-center">
                 <canvas id="donutChartCanvas"></canvas>
@@ -734,12 +1006,25 @@
                 <div id="dash-upcoming-list" class="mt-4 space-y-1">
                   <!-- Populated via JS -->
                 </div>
+
+                <div class="mt-4 p-3 rounded-xl bg-[#FCFAF6] border border-[#BE7B68]/20 text-[11px] text-[#7D6B63] space-y-1">
+                  <div class="flex items-center gap-1.5 font-bold text-[#BE7B68]">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    <span>Báo cáo DOCX chuyên nghiệp</span>
+                  </div>
+                  <p class="leading-relaxed">Kiểm toán chất lượng, Phân tích sản phẩm & Kênh bán, Thống kê tài chính và Khuyến nghị vận hành AI.</p>
+                </div>
               </div>
 
-              <div class="mt-6">
-                <button onclick="document.getElementById('btn-export-excel').click()" class="btn-keo-primary w-full text-xs">
-                  <span>Tải tệp hoàn chỉnh</span>
-                  <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <div class="mt-5 space-y-2">
+                <button id="btn-card-export-docx" class="btn-keo-primary w-full text-xs shadow-md flex items-center justify-center gap-2">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  <span>Tải Báo cáo Phân tích (.docx)</span>
+                </button>
+                <button onclick="document.getElementById('btn-export-excel').click()"
+                  class="btn-keo-secondary w-full text-xs flex items-center justify-center gap-2 hover:bg-[#F7EBE8] text-[#BE7B68]">
+                  <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+                  <span>Tải tệp Excel hoàn chỉnh (.xlsx)</span>
                 </button>
               </div>
             </div>
@@ -755,7 +1040,8 @@
                   <p class="text-xs text-[#96847B]">Toàn bộ bản ghi đã làm sạch và sẵn sàng đưa vào vận hành</p>
                 </div>
                 <div class="relative w-full sm:w-64">
-                  <input type="text" id="final-table-search" placeholder="Tìm kiếm nhanh bản ghi..." class="w-full text-xs pl-8 pr-3 py-1.5 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] focus:outline-none focus:border-[#BE7B68]">
+                  <input type="text" id="final-table-search" placeholder="Tìm kiếm nhanh bản ghi..."
+                    class="w-full text-xs pl-8 pr-3 py-1.5 rounded-full border border-[#BE7B68]/20 bg-[#FCFAF6] focus:outline-none focus:border-[#BE7B68]">
                   <i data-lucide="search" class="w-3.5 h-3.5 text-[#96847B] absolute left-2.5 top-2.5"></i>
                 </div>
               </div>
@@ -768,15 +1054,16 @@
             </div>
 
             <!-- Mini Compliance Wave Card (3 Cols) -->
-            <div class="lg:col-span-3 keo-card p-5 flex flex-col justify-between h-full bg-gradient-to-b from-white to-[#FCFAF6]">
+            <div
+              class="lg:col-span-3 keo-card p-5 flex flex-col justify-between h-full bg-gradient-to-b from-white to-[#FCFAF6]">
               <div>
                 <h3 class="font-bold text-xs uppercase tracking-wider text-[#96847B]">Tỷ lệ tin cậy</h3>
                 <div class="mt-4 flex items-baseline gap-2">
                   <span class="text-4xl font-extrabold text-[#3A2E2B]">99%</span>
                   <span class="text-xs font-semibold text-[#7E9682]">Tổng thể</span>
                 </div>
-                <p class="text-xs text-[#7D6B63] mt-2 leading-relaxed">
-                  Dữ liệu đã được kiểm tra theo chuẩn Kẹo Cute, không còn trùng lặp hoặc sai định dạng.
+                <p id="dash-summary-desc" class="text-xs text-[#7D6B63] mt-2 leading-relaxed">
+                  Dữ liệu đã được kiểm tra theo chuẩn chất lượng cao, không còn trùng lặp hoặc sai định dạng.
                 </p>
               </div>
 
@@ -796,9 +1083,12 @@
   </div>
 
   <!-- Global Full-page Loading Spinner -->
-  <div id="global-loader" class="fixed inset-0 bg-[#3A2E2B]/20 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-    <div class="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-3 max-w-xs text-center border border-[#BE7B68]/20">
-      <div class="w-12 h-12 rounded-2xl bg-[#F7EBE8] text-[#BE7B68] flex items-center justify-center animate-soft-pulse text-2xl">
+  <div id="global-loader"
+    class="fixed inset-0 bg-[#3A2E2B]/20 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div
+      class="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-3 max-w-xs text-center border border-[#BE7B68]/20">
+      <div
+        class="w-12 h-12 rounded-2xl bg-[#F7EBE8] text-[#BE7B68] flex items-center justify-center animate-soft-pulse text-2xl">
         🍬
       </div>
       <p id="global-loader-text" class="text-xs font-bold text-[#3A2E2B]">Đang tải dữ liệu...</p>
@@ -806,7 +1096,8 @@
   </div>
 
   <!-- Simulated AI Processing Modal -->
-  <div id="ai-process-modal" class="fixed inset-0 bg-[#3A2E2B]/25 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+  <div id="ai-process-modal"
+    class="fixed inset-0 bg-[#3A2E2B]/25 backdrop-blur-sm z-50 flex items-center justify-center hidden">
     <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl max-w-sm w-full border border-[#BE7B68]/20 space-y-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-2xl bg-[#BE7B68] text-white flex items-center justify-center animate-spin">
@@ -838,5 +1129,5 @@
   <!-- App Script -->
   <script src="/static/js/app.js"></script>
 </body>
-</html>
 
+</html>

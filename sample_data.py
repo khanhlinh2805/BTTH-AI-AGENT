@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import random
+import re
+import unicodedata
 from datetime import datetime, timedelta
 
 def generate_keo_cute_sample_data(n_rows: int = 120) -> pd.DataFrame:
@@ -98,22 +100,37 @@ def generate_keo_cute_sample_data(n_rows: int = 120) -> pd.DataFrame:
 
         status = random.choice(statuses)
 
+        # Unaccented test cases to test diacritic harvesting from file
+        prod_disp = prod
+        branch_disp = branch
+        if i in [4, 15, 28, 55, 78]:
+            # Intentionally remove accents from product
+            prod_unacc = unicodedata.normalize('NFD', prod)
+            prod_unacc = re.sub(r'[\u0300-\u036f]', '', prod_unacc).replace('đ', 'd').replace('Đ', 'D')
+            prod_disp = prod_unacc
+        if i in [8, 22, 63] and branch:
+            # Intentionally remove accents from branch
+            branch_unacc = unicodedata.normalize('NFD', branch)
+            branch_unacc = re.sub(r'[\u0300-\u036f]', '', branch_unacc).replace('đ', 'd').replace('Đ', 'D')
+            branch_disp = branch_unacc
+
         records.append({
             'Mã Đơn Hàng': f"KC-{1000 + i}",
             'Tên Khách Hàng': name,
             'Số Điện Thoại': phone,
             'Ngày Mua': date_str,
             'Danh Mục': cat,
-            'Sản Phẩm': prod,
+            'Sản Phẩm': prod_disp,
             'Số Lượng': qty,
             'Đơn Giá': price_disp,
-            'Chi Nhánh': branch,
+            'Chi Nhánh': branch_disp,
             'Trạng Thái': status
         })
 
-    # Add 5 intentional duplicate rows to test deduplication
+    # Add intentional duplicate rows to test deduplication
     for dup_idx in [3, 10, 25, 42, 60]:
-        records.append(dict(records[dup_idx]))
+        if dup_idx < len(records):
+            records.append(dict(records[dup_idx]))
 
     df = pd.DataFrame(records)
     return df

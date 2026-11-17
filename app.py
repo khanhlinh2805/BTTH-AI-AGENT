@@ -2,23 +2,99 @@ import os
 import io
 import uuid
 import json
+import tempfile
+import pickle
 import pandas as pd
 from flask import Flask, render_template, request, jsonify, send_file, session
 from data_processor import KeoCuteDataProcessor
 from docx_report_generator import generate_keo_cute_docx_report
 from sample_data import generate_keo_cute_sample_data
 
-app = Flask(__name__)
+# Robust path resolution for Serverless (Vercel) & Local
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.join(BASE_DIR, 'templates')
+static_dir = os.path.join(BASE_DIR, 'static')
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.secret_key = 'keocute_secret_key_soft_ivory_2026'
 
-# In-memory storage for session data (keyed by session_id)
-# Schema: { session_id: { 'raw_df': DataFrame, 'cleaned_df': DataFrame, 'history': [], 'approved': bool, 'filename': str } }
+# Session persistence layer (Memory + /tmp Disk Cache for Vercel Serverless)
+SESSION_DIR = os.path.join(tempfile.gettempdir(), 'keocute_sessions')
+try:
+    os.makedirs(SESSION_DIR, exist_ok=True)
+except Exception:
+    pass
+
 DATA_STORE = {}
 
 def get_session_id():
+    """Extracts persistent session identifier across serverless calls."""
+    # 1. Custom client header (survives cross-origin/serverless cookie drops)
+    sid = request.headers.get('X-Session-ID') or request.args.get('sid')
+    if sid and str(sid).strip():
+        return str(sid).strip()
+    # 2. Check JSON payload
+    if request.is_json and request.json and request.json.get('session_id'):
+        return str(request.json.get('session_id')).strip()
+    # 3. Flask signed cookie session
     if 'uid' not in session:
         session['uid'] = str(uuid.uuid4())
     return session['uid']
+
+def get_session_data(uid):
+    """Retrieves session state from Memory, Disk cache, or fallback."""
+    # 1. In-memory cache
+    if uid in DATA_STORE and DATA_STORE[uid].get('raw_df') is not None:
+        return DATA_STORE[uid]
+
+    # 2. Disk cache (/tmp)
+    file_path = os.path.join(SESSION_DIR, f"{uid}.pkl")
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'rb') as f:
+                d = pickle.load(f)
+                DATA_STORE[uid] = d
+                return d
+        except Exception:
+            pass
+
+    # 3. Serverless fallback: look for the most recent session in memory
+    for k, v in DATA_STORE.items():
+        if v and (v.get('raw_df') is not None or v.get('cleaned_df') is not None):
+            return v
+
+    # 4. Serverless fallback: look for the most recent session file on disk
+    try:
+        files = sorted(
+            [f for f in os.listdir(SESSION_DIR) if f.endswith('.pkl')],
+            key=lambda x: os.path.getmtime(os.path.join(SESSION_DIR, x)),
+            reverse=True
+        )
+        for fn in files:
+            with open(os.path.join(SESSION_DIR, fn), 'rb') as f:
+                d = pickle.load(f)
+                if d and (d.get('raw_df') is not None or d.get('cleaned_df') is not None):
+                    return d
+    except Exception:
+        pass
+
+    return DATA_STORE.setdefault(uid, {
+        'raw_df': None,
+        'cleaned_df': None,
+        'history': [],
+        'approved': False,
+        'filename': '',
+        'context': {}
+    })
+
+def save_session_data(uid, data):
+    """Saves session state to both Memory and Disk (/tmp)."""
+    DATA_STORE[uid] = data
+    try:
+        file_path = os.path.join(SESSION_DIR, f"{uid}.pkl")
+        with open(file_path, 'wb') as f:
+            pickle.dump(data, f)
+    except Exception:
+        pass
 
 @app.route('/')
 def index():
@@ -36,26 +112,19 @@ def save_context():
     if not business_type:
         return jsonify({'status': 'error', 'message': 'Vui lòng chọn hoặc nhập Loại hình doanh nghiệp (bắt buộc)!'}), 400
 
-    if uid not in DATA_STORE:
-        DATA_STORE[uid] = {
-            'raw_df': None,
-            'cleaned_df': None,
-            'history': [],
-            'approved': False,
-            'filename': '',
-            'context': {}
-        }
-
-    DATA_STORE[uid]['context'] = {
+    s_data = get_session_data(uid)
+    s_data['context'] = {
         'business_name': business_name,
         'business_type': business_type,
         'additional_info': additional_info
     }
+    save_session_data(uid, s_data)
 
     return jsonify({
         'status': 'success',
         'message': 'Đã lưu bối cảnh doanh nghiệp thành công!',
-        'context': DATA_STORE[uid]['context']
+        'context': s_data['context'],
+        'session_id': uid
     })
 
 @app.route('/api/sample', methods=['POST'])
@@ -64,32 +133,37 @@ def load_sample():
     uid = get_session_id()
     df = generate_keo_cute_sample_data(120)
     inspection = KeoCuteDataProcessor.inspect_data(df)
-    existing_context = DATA_STORE.get(uid, {}).get('context', {
+    s_data = get_session_data(uid)
+    existing_context = s_data.get('context', {
         'business_name': 'Kẹo Cute',
         'business_type': 'F&B / Bánh kẹo & Đồ uống',
         'additional_info': ''
     })
 
-    DATA_STORE[uid] = {
+    s_data.update({
         'raw_df': df.copy(),
         'cleaned_df': None,
         'history': [],
         'approved': False,
         'filename': 'Du_Lieu_Mau_Keo_Cute.xlsx',
         'context': existing_context
-    }
+    })
+    save_session_data(uid, s_data)
 
-    # Return preview data (first 25 rows)
+    # Return preview data (first 30 rows) and full records for stateless serverless hydration
     preview_data = df.head(30).fillna('').to_dict(orient='records')
+    raw_records = df.fillna('').to_dict(orient='records')
 
     return jsonify({
         'status': 'success',
         'filename': 'Du_Lieu_Mau_Keo_Cute.xlsx',
         'inspection': inspection,
         'preview': preview_data,
+        'raw_records': raw_records,
         'total_rows': len(df),
         'total_cols': len(df.columns),
-        'context': existing_context
+        'context': existing_context,
+        'session_id': uid
     })
 
 @app.route('/api/upload', methods=['POST'])
@@ -107,7 +181,6 @@ def upload_file():
 
     try:
         if filename.endswith('.csv'):
-            # Try utf-8 then utf-8-sig
             try:
                 df = pd.read_csv(file, encoding='utf-8')
             except UnicodeDecodeError:
@@ -123,33 +196,37 @@ def upload_file():
         if df.empty:
             return jsonify({'status': 'error', 'message': 'Tệp tải lên không chứa dữ liệu.'}), 400
 
-        # Replace NaN with pd.NA or keep clean
         inspection = KeoCuteDataProcessor.inspect_data(df)
-        existing_context = DATA_STORE.get(uid, {}).get('context', {
+        s_data = get_session_data(uid)
+        existing_context = s_data.get('context', {
             'business_name': 'Kẹo Cute',
             'business_type': 'F&B / Bánh kẹo & Đồ uống',
             'additional_info': ''
         })
 
-        DATA_STORE[uid] = {
+        s_data.update({
             'raw_df': df.copy(),
             'cleaned_df': None,
             'history': [],
             'approved': False,
             'filename': filename,
             'context': existing_context
-        }
+        })
+        save_session_data(uid, s_data)
 
         preview_data = df.head(30).fillna('').to_dict(orient='records')
+        raw_records = df.head(2500).fillna('').to_dict(orient='records')
 
         return jsonify({
             'status': 'success',
             'filename': filename,
             'inspection': inspection,
             'preview': preview_data,
+            'raw_records': raw_records,
             'total_rows': len(df),
             'total_cols': len(df.columns),
-            'context': existing_context
+            'context': existing_context,
+            'session_id': uid
         })
 
     except Exception as e:
@@ -159,13 +236,20 @@ def upload_file():
 def process_data():
     """Processes and cleans data according to selected rules and user prompt."""
     uid = get_session_id()
-    if uid not in DATA_STORE or DATA_STORE[uid].get('raw_df') is None:
+    s_data = get_session_data(uid)
+    raw_df = s_data.get('raw_df')
+    options = request.json or {}
+
+    # Stateless fallback hydration from client payload
+    if raw_df is None and options.get('raw_records'):
+        raw_df = pd.DataFrame(options['raw_records'])
+        s_data['raw_df'] = raw_df
+
+    if raw_df is None or raw_df.empty:
         return jsonify({'status': 'error', 'message': 'Chưa có dữ liệu để xử lý. Vui lòng tải file trước.'}), 400
 
-    raw_df = DATA_STORE[uid]['raw_df']
-    options = request.json or {}
-    options['initial_health'] = DATA_STORE[uid].get('initial_health', 70)
-    options['context'] = DATA_STORE[uid].get('context', {
+    options['initial_health'] = s_data.get('initial_health', 70)
+    options['context'] = s_data.get('context', {
         'business_name': 'Kẹo Cute',
         'business_type': 'F&B / Bánh kẹo & Đồ uống'
     })
@@ -174,16 +258,18 @@ def process_data():
         cleaned_df, stats, audit_log = KeoCuteDataProcessor.process_data(raw_df, options)
         diff_data = KeoCuteDataProcessor.generate_diff(raw_df, cleaned_df)
 
-        DATA_STORE[uid]['cleaned_df'] = cleaned_df
-        DATA_STORE[uid]['approved'] = False
-        DATA_STORE[uid]['last_options'] = options
-        DATA_STORE[uid]['history'].append({
+        s_data['cleaned_df'] = cleaned_df
+        s_data['approved'] = False
+        s_data['last_options'] = options
+        s_data['history'].append({
             'options': options,
             'stats': stats,
             'audit_log': audit_log
         })
+        save_session_data(uid, s_data)
 
         preview_data = cleaned_df.head(40).fillna('').to_dict(orient='records')
+        cleaned_records = cleaned_df.head(2500).fillna('').to_dict(orient='records')
 
         return jsonify({
             'status': 'success',
@@ -191,8 +277,10 @@ def process_data():
             'audit_log': audit_log,
             'diff': diff_data,
             'preview': preview_data,
+            'cleaned_records': cleaned_records,
             'columns': list(cleaned_df.columns),
-            'iteration': len(DATA_STORE[uid]['history'])
+            'iteration': len(s_data['history']),
+            'session_id': uid
         })
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Lỗi trong quá trình xử lý: {str(e)}'}), 500
@@ -204,19 +292,25 @@ def reprocess():
     until client is satisfied with the preview.
     """
     uid = get_session_id()
-    if uid not in DATA_STORE or DATA_STORE[uid].get('raw_df') is None:
+    s_data = get_session_data(uid)
+    raw_df = s_data.get('raw_df')
+    req_data = request.json or {}
+
+    # Stateless fallback hydration from client payload
+    if raw_df is None and req_data.get('raw_records'):
+        raw_df = pd.DataFrame(req_data['raw_records'])
+        s_data['raw_df'] = raw_df
+
+    if raw_df is None or raw_df.empty:
         return jsonify({'status': 'error', 'message': 'Không tìm thấy phiên làm việc.'}), 400
 
-    raw_df = DATA_STORE[uid]['raw_df']
-    req_data = request.json or {}
     feedback_text = req_data.get('feedback', '').strip()
     custom_rules = req_data.get('rules', {})
 
-    # Combine with previous options and attach feedback
-    options = DATA_STORE[uid].get('last_options', {}).copy()
+    options = s_data.get('last_options', {}).copy()
     options.update(custom_rules)
-    options['context'] = DATA_STORE[uid].get('context', {})
-    options['initial_health'] = DATA_STORE[uid].get('initial_health', 70)
+    options['context'] = s_data.get('context', {})
+    options['initial_health'] = s_data.get('initial_health', 70)
     if feedback_text:
         existing_prompt = options.get('custom_prompt', '')
         options['custom_prompt'] = f"{feedback_text}\n{existing_prompt}".strip()
@@ -225,16 +319,18 @@ def reprocess():
         cleaned_df, stats, audit_log = KeoCuteDataProcessor.process_data(raw_df, options)
         diff_data = KeoCuteDataProcessor.generate_diff(raw_df, cleaned_df)
 
-        DATA_STORE[uid]['cleaned_df'] = cleaned_df
-        DATA_STORE[uid]['last_options'] = options
-        DATA_STORE[uid]['history'].append({
+        s_data['cleaned_df'] = cleaned_df
+        s_data['last_options'] = options
+        s_data['history'].append({
             'feedback': feedback_text,
             'options': options,
             'stats': stats,
             'audit_log': audit_log
         })
+        save_session_data(uid, s_data)
 
         preview_data = cleaned_df.head(40).fillna('').to_dict(orient='records')
+        cleaned_records = cleaned_df.head(2500).fillna('').to_dict(orient='records')
 
         return jsonify({
             'status': 'success',
@@ -242,9 +338,11 @@ def reprocess():
             'audit_log': audit_log,
             'diff': diff_data,
             'preview': preview_data,
+            'cleaned_records': cleaned_records,
             'columns': list(cleaned_df.columns),
-            'iteration': len(DATA_STORE[uid]['history']),
-            'message': f'Đã xử lý lại phiên bản lần {len(DATA_STORE[uid]["history"])} theo yêu cầu của bạn!'
+            'iteration': len(s_data['history']),
+            'message': f'Đã xử lý lại phiên bản lần {len(s_data["history"])} theo yêu cầu của bạn!',
+            'session_id': uid
         })
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Lỗi khi xử lý lại: {str(e)}'}), 500
@@ -258,7 +356,7 @@ def build_dashboard_response(cleaned_df, uid):
     import re
 
     total_records = len(cleaned_df)
-    session_info = DATA_STORE.get(uid, {})
+    session_info = get_session_data(uid)
     context = session_info.get('context', {
         'business_name': 'Kẹo Cute',
         'business_type': 'F&B / Bánh kẹo & Đồ uống'
@@ -470,24 +568,45 @@ def build_dashboard_response(cleaned_df, uid):
 def approve_data():
     """User approves the preview. Prepares analytics dashboard and enables export."""
     uid = get_session_id()
-    if uid not in DATA_STORE or DATA_STORE[uid].get('cleaned_df') is None:
+    s_data = get_session_data(uid)
+    
+    # If cleaned_df is None, check if client sent cleaned_records or raw_records
+    if s_data.get('cleaned_df') is None:
+        if request.is_json and request.json and request.json.get('cleaned_records'):
+            req_cleaned = request.json.get('cleaned_records')
+            if req_cleaned and isinstance(req_cleaned, list):
+                s_data['cleaned_df'] = pd.DataFrame(req_cleaned)
+        elif s_data.get('raw_df') is not None:
+            s_data['cleaned_df'] = s_data['raw_df'].copy()
+
+    if s_data.get('cleaned_df') is None:
         return jsonify({'status': 'error', 'message': 'Chưa có dữ liệu xử lý để phê duyệt.'}), 400
 
-    cleaned_df = DATA_STORE[uid]['cleaned_df']
-    DATA_STORE[uid]['approved'] = True
+    cleaned_df = s_data['cleaned_df']
+    s_data['approved'] = True
+    save_session_data(uid, s_data)
 
     response_data = build_dashboard_response(cleaned_df, uid)
     return jsonify(response_data)
 
-@app.route('/api/export/<file_format>', methods=['GET'])
+@app.route('/api/export/<file_format>', methods=['GET', 'POST'])
 def export_file(file_format):
-    """Exports cleaned dataset in specified format (xlsx, csv, json)."""
+    """Exports cleaned dataset in specified format (xlsx, csv, json, docx)."""
     uid = get_session_id()
-    if uid not in DATA_STORE or DATA_STORE[uid].get('cleaned_df') is None:
+    s_data = get_session_data(uid)
+    
+    # Fallback if cleaned_df not in memory
+    df = s_data.get('cleaned_df')
+    if df is None:
+        if request.is_json and request.json and request.json.get('records'):
+            df = pd.DataFrame(request.json.get('records'))
+        elif s_data.get('raw_df') is not None:
+            df = s_data.get('raw_df')
+
+    if df is None or (hasattr(df, 'empty') and df.empty):
         return jsonify({'status': 'error', 'message': 'Không có dữ liệu sạch để xuất.'}), 400
 
-    df = DATA_STORE[uid]['cleaned_df']
-    base_name = DATA_STORE[uid].get('filename', 'Keo_Cute_Du_Lieu').rsplit('.', 1)[0]
+    base_name = s_data.get('filename', 'Keo_Cute_Du_Lieu').rsplit('.', 1)[0]
     out_filename = f"{base_name}_Da_Lam_Sach.{file_format}"
 
     if file_format == 'csv':
@@ -512,14 +631,14 @@ def export_file(file_format):
             download_name=out_filename
         )
     elif file_format == 'docx':
-        context = DATA_STORE[uid].get('context', {
+        context = s_data.get('context', {
             'business_name': 'Kẹo Cute',
             'business_type': 'F&B / Bánh kẹo & Đồ uống',
             'additional_info': ''
         })
         session_info = {
-            'filename': DATA_STORE[uid].get('filename', 'Keo_Cute_Du_Lieu.xlsx'),
-            'stats': DATA_STORE[uid]['history'][-1].get('stats', {}) if DATA_STORE[uid].get('history') else {}
+            'filename': s_data.get('filename', 'Keo_Cute_Du_Lieu.xlsx'),
+            'stats': s_data['history'][-1].get('stats', {}) if s_data.get('history') else {}
         }
         buffer = generate_keo_cute_docx_report(df, context, session_info)
         out_docx_name = f"{base_name}_Bao_Cao_Phan_Tich_Chuyen_Nghiep.docx"
@@ -533,9 +652,10 @@ def export_file(file_format):
         buffer = io.BytesIO()
         # Export with openpyxl with nice warm terracotta header formatting
         with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
-            df.to_excel(writer, index=False, sheet_name='Kẹo Cute Dữ Liệu Sạch')
+            sheet_title = 'Kẹo Cute Dữ Liệu Sạch'[:31]
+            df.to_excel(writer, index=False, sheet_name=sheet_title)
             workbook = writer.book
-            worksheet = writer.sheets['Kẹo Cute Dữ Liệu Sạch']
+            worksheet = writer.sheets[sheet_title]
 
             # Style header row with terracotta theme
             from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
@@ -572,6 +692,12 @@ def reset_session():
     uid = get_session_id()
     if uid in DATA_STORE:
         del DATA_STORE[uid]
+    pkl_path = os.path.join(SESSION_DIR, f"{uid}.pkl")
+    if os.path.exists(pkl_path):
+        try:
+            os.remove(pkl_path)
+        except Exception:
+            pass
     return jsonify({'status': 'success', 'message': 'Đã khởi tạo lại phiên làm việc.'})
 
 if __name__ == '__main__':
